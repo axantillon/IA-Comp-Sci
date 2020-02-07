@@ -6,15 +6,20 @@ const router = express.Router();
 
 router.get('/', async (req,res) => {
     const items = await loadItemsCollection();
-    res.send(await items.find({ week: req.body.week }).toArray());
+    res.send(await items.find({}).toArray());
+})
+
+router.get('/:week', async (req,res) => {
+    const items = await loadItemsCollection();
+    res.send(await items.find({ week: req.params.week }).toArray());
 })
 
 //Add Item for :week
 router.post('/:week', async (req,res) => {
     const items = await loadItemsCollection();
     await items.insertOne({
+        week: req.params.week,
         name: req.body.name,
-        // week: ,
         quantity: req.body.quantity,
         createdAt: new Date()
     });
@@ -23,17 +28,17 @@ router.post('/:week', async (req,res) => {
 })
 
 //Delete Item for :week
-router.delete('/:id', async(req,res) => {
+router.delete('/:week/:id', async(req,res) => {
     const items = await loadItemsCollection();
-    await items.deleteOne({ _id: new mongodb.ObjectID(req.params.id) });
-    res.status(200).send({});
+    await items.deleteOne({ $and: [ { week: req.params.week}, { _id: new mongodb.ObjectID(req.params.id) } ]});
+    res.status(200).send({}); 
 })
 
 //Put User/volunteer and change Quantity
 router.put('/:week/:id', async(req,res) => {
     const items = await loadItemsCollection();
     await items.updateOne(
-        { _id: mongodb.ObjectID(req.params.id) },
+        { $and: [ { week: req.params.week}, {_id: mongodb.ObjectID(req.params.id)} ]},
         {
             $inc: {quantity: -req.body.quantity },
             $currentDate: { lastModified: true }
