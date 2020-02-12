@@ -35,8 +35,8 @@ router.put('/:week/:id', async(req,res) => {
     await items.updateOne(
         { $and: [ { week: req.params.week}, {_id: new mongodb.ObjectId(req.params.id)} ]},
         {
-            $inc: {quantity: -req.body.quantity },
-            $currentDate: { lastModified: true }
+            $inc: {quantity: -req.body.quantity }, //update quantity field
+            $currentDate: { lastModified: true } //Add Date for when it was Last Modified
         }
     );
 
@@ -55,6 +55,7 @@ async function loadItemsCollection() {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/test?retryWrites=true&w=majority',
         {
+            // These are set to avoid errors
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
