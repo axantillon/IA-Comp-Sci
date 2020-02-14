@@ -17,10 +17,10 @@ router.get('/:week', async (req,res) => {
 });
 
 //Add Item for :week
-router.post('/:week', async (req,res) => {
+router.post('/', async (req,res) => {
     const items = await loadItemsCollection();
     await items.insertOne({
-        week: req.params.week,
+        //week: req.params.week,
         name: req.body.name,
         quantity: req.body.quantity,
         createdAt: new Date()

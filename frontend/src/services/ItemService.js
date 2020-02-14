@@ -6,8 +6,14 @@ class ItemService {
     // Get Items
     static async getItems(){
         const response = await axios.get(url);
-        response.data.createdAt = new Date(response.data.createdAt)
         return response;
+    }
+
+    static insertItem(name, quantity){
+        return axios.post(url, {
+            name,
+            quantity,
+        })
     }
 }
 

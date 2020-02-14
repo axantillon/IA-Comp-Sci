@@ -1,17 +1,16 @@
 <template>
   <div class="listItems">
-    <h1> Items </h1>
-    <hr>
     <p class="error" v-if="error"> {{error}} </p>
     <v-card
     class="mx-auto"
     max-width="400"
     tile
     >
+      <v-card-title> Items </v-card-title>
       <v-list-item v-for="(things, index) in things"
-                  v-bind:item="things"
-                  v-bind:index="index"
-                  v-bind:key="things._id"
+                v-bind:item="things"
+                v-bind:index="index"
+                v-bind:key="things._id"
       >
         <v-list-item-content>
           <v-list-item-title> {{things.name}} </v-list-item-title>
@@ -32,27 +31,35 @@
 </template>
 
 <script>
-import ItemService from '../ItemService';
+//import ItemService from '../services/ItemService';
+import { mapState } from 'vuex'
 
 export default {
   name: "listItems",
-  data() {
-    return {
-      things: [],
+
+  data: () => ({
       error: '',
       week: '',
       name: '',
       quantity: '',
-    }
+  }),
+
+  mounted() {
+    this.$store.dispatch('loadThings')
   },
-  async created(){
-    try {
-      const response = await ItemService.getItems();
-      this.things = response.data;
-    } catch(err) {
-      this.error = err.message;
-    }
-  }
+
+  // async created(){
+  //   try {
+  //     const response = await ItemService.getItems();
+  //     this.things = response.data;
+  //   } catch(err) {
+  //     this.error = err.message;
+  //   }
+  // },
+
+  computed: mapState([
+    'things'
+  ])
 };
 </script>
 

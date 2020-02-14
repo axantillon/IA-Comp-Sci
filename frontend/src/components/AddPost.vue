@@ -1,0 +1,84 @@
+<template>
+    <div class="AddPost">
+        <v-card
+            class="mx-auto"
+            max-width="800"
+            tile
+        >
+            <div class="form-AddPost" style="padding: 0px 40px">
+                <form>
+                    <v-text-field
+                        v-model="name"
+                        :error-messages="nameErrors"
+                        label="Name of Item"
+                        required
+                        @input="$v.name.$touch()"
+                        @blur="$v.name.$touch()"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="quantity"
+                        :error-messages="quantityErrors"
+                        label="Quantity Needed"
+                        required
+                        @input="$v.quantity.$touch()"
+                        @blur="$v.quantity.$touch()"
+                    ></v-text-field>
+
+                    <v-btn style="margin: 0px 0px 10px" @click="add">add</v-btn>
+                </form>
+            </div>
+        </v-card>
+    </div>
+</template>
+
+<script>
+import { validationMixin } from 'vuelidate'
+import { required, numeric } from 'vuelidate/lib/validators'
+import ItemService from '../services/ItemService'
+
+export default {
+    mixins: [validationMixin],
+
+    validations: {
+      name: { required},
+      quantity: { required, numeric },
+    },
+
+    data: () => ({
+      name: '',
+      quantity: '',
+    }),
+    
+    computed: {
+        nameErrors () {
+        const errors = []
+        if (!this.$v.name.$dirty) return errors
+        !this.$v.name.required && errors.push('Name of item is required')
+        return errors
+      },
+      quantityErrors () {
+        const errors = []
+        if (!this.$v.quantity.$dirty) return errors
+        !this.$v.quantity.numeric && errors.push('Quantity needed must be a numeric value')
+        !this.$v.quantity.required && errors.push('Quantity needed is required')
+        return errors
+      },
+    },
+
+    methods: {
+        async add() {
+            this.$v.$touch()
+            const name = this.name
+            const quantity = this.quantity
+
+            this.$v.$reset()
+            this.name = ''
+            this.quantity = ''
+
+            await ItemService.insertItem(name, quantity)
+            this.$store.dispatch('loadThings')
+                        
+        }
+    },
+}
+</script>
