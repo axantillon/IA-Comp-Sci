@@ -15,7 +15,7 @@ export default new Vuex.Store({
       try{
         const response = await ItemService.getItems();
         commit('setThings', response.data)
-        
+        commit('loadedThings', true)
 
       } catch (err) {
         commit('handleError', err)
