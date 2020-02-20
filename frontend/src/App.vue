@@ -4,12 +4,15 @@
       app
       color="primary"
       dark
-    >
-      
+    > 
     </v-app-bar>
 
     <v-content>
-      <AddPost/>
+      <div class="d-flex align-center">
+        <router-link to="/">Add</router-link> |
+        <router-link to="/update">Update</router-link>
+      </div>
+      <router-view/>
       <hr/>
       <ListItems/>
     </v-content>
@@ -17,7 +20,6 @@
 </template>
 
 <script>
-import AddPost from './components/AddPost';
 import ListItems from './components/ListItems';
 
 export default {
@@ -25,7 +27,6 @@ export default {
 
   components: {
     ListItems,
-    AddPost
   },
 
   data: () => ({

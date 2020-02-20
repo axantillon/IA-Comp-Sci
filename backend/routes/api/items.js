@@ -30,13 +30,13 @@ router.post('/', async (req,res) => {
 });
 
 // Update quantity on item filtered by :week and :id
-router.put('/:week/:id', async(req,res) => {
+router.put('/:name', async(req,res) => {
     const items = await loadItemsCollection();
     await items.updateOne(
-        { $and: [ { week: req.params.week}, {_id: new mongodb.ObjectId(req.params.id)} ]},
+        {name: req.params.name},
         {
             $inc: {quantity: -req.body.quantity }, //update quantity field
-            $currentDate: { lastModified: true } //Add Date for when it was Last Modified
+            $currentDate: { lastModified: true }   //Add Date for when it was Last Modified
         }
     );
 
@@ -44,16 +44,17 @@ router.put('/:week/:id', async(req,res) => {
 });
 
 //Delete Item for :week & :id
-router.delete('/:week/:id', async(req,res) => {
+router.delete('/:name', async(req,res) => {
     const items = await loadItemsCollection();
-    await items.deleteOne({ $and: [ { week: req.params.week}, { _id: new mongodb.ObjectId(req.params.id) } ]});
+    await items.deleteOne( {name: req.params.name} );
     res.status(200).send({}); 
 });
 
 // Function to connect and retrieve database
 async function loadItemsCollection() {
     const client = await mongodb.MongoClient.connect(
-        'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/test?retryWrites=true&w=majority',
+        //'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/test?retryWrites=true&w=majority',
+        'mongodb://localhost:27017',
         {
             // These are set to avoid errors
             useNewUrlParser: true,
