@@ -1,12 +1,18 @@
 <template>
   <div class="listItems">
-    <p class="error" v-if="error"> {{error}} </p>
     <v-card
     class="mx-auto"
     max-width="400"
     tile
     >
       <v-card-title> Items </v-card-title>
+      <v-skeleton-loader
+        v-if="!loaded"
+        height=100
+        type="list-item-two-line"
+      >
+      </v-skeleton-loader>
+      <p class="error" v-if="error"> {{error.message}} </p>
       <v-list-item v-for="(things, index) in things"
                 v-bind:item="things"
                 v-bind:index="index"
@@ -31,34 +37,21 @@
 </template>
 
 <script>
-//import ItemService from '../services/ItemService';
 import { mapState } from 'vuex'
 
 export default {
   name: "listItems",
 
   data: () => ({
-      error: '',
-      week: '',
-      name: '',
-      quantity: '',
+
   }),
 
   mounted() {
     this.$store.dispatch('loadThings')
   },
 
-  // async created(){
-  //   try {
-  //     const response = await ItemService.getItems();
-  //     this.things = response.data;
-  //   } catch(err) {
-  //     this.error = err.message;
-  //   }
-  // },
-
   computed: mapState([
-    'things'
+    'things', 'error', 'loaded'
   ])
 };
 </script>

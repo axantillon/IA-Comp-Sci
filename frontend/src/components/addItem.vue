@@ -1,11 +1,15 @@
 <template>
-    <div class="AddPost">
+    <div class="addItem">
         <v-card
             class="mx-auto"
             max-width="800"
             tile
         >
-            <div class="form-AddPost" style="padding: 0px 40px">
+            <v-card-title>
+                Add an Item
+            </v-card-title>
+            <hr>
+            <div class="form-addItem" style="padding: 0px 40px">
                 <form>
                     <v-text-field
                         v-model="name"
@@ -69,7 +73,7 @@ export default {
         async add() {
             this.$v.$touch()
             const name = this.name
-            const quantity = this.quantity
+            const quantity = parseInt(this.quantity)
 
             this.$v.$reset()
             this.name = ''

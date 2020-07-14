@@ -15,6 +15,12 @@ class ItemService {
             quantity,
         })
     }
+
+    static updateItem(name, quantity) {
+        return axios.put(`${url}${name}`, {
+            quantity
+        })
+    }
 }
 
 export default ItemService;

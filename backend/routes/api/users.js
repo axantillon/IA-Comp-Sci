@@ -43,7 +43,7 @@ router.put('/:id', async (req,res) => {
 // Function to connect and retrieve database
 async function loadUsersCollection() {
     const client = await mongodb.MongoClient.connect(
-        'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/test?retryWrites=true&w=majority',
+        'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/main?retryWrites=true&w=majority',
         {
             useNewUrlParser: true,
             useUnifiedTopology: true
