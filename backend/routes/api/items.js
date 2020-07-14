@@ -53,8 +53,8 @@ router.delete('/:name', async(req,res) => {
 // Function to connect and retrieve database
 async function loadItemsCollection() {
     const client = await mongodb.MongoClient.connect(
-        //'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/test?retryWrites=true&w=majority',
-        'mongodb://localhost:27017',
+        'mongodb+srv://alaas:tGnWBguQBIPKrBXJ@comp-sci-ia-db-xohqr.mongodb.net/main?retryWrites=true&w=majority',
+        //'mongodb://localhost:27017',
         {
             // These are set to avoid errors
             useNewUrlParser: true,
