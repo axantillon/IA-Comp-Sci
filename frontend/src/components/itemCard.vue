@@ -1,8 +1,8 @@
 <template>
   <div class="itemCard ma-6">
-      <v-card width="250">
-            <v-card-title> Example </v-card-title>
-            <v-card-subtitle> Quantity : #</v-card-subtitle>
+      <v-card width="250" height="175">
+            <v-card-title class="card_title">{{ item }}</v-card-title>
+            <v-card-subtitle> Quantity : {{quantity}}</v-card-subtitle>
             <v-card-text>
             </v-card-text>
             <v-card-actions class="justify-center">
@@ -14,22 +14,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
   name: "itemCard",
 
+  props: ['item', 'quantity'],
+
   data: () => ({
 
   }),
-
-  mounted() {
-    this.$store.dispatch('loadThings')
-  },
-
-  computed: mapState([
-    'things', 'error', 'loaded'
-  ])
 };
 </script>
 

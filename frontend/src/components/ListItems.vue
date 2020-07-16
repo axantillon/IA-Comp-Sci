@@ -1,57 +1,51 @@
 <template>
   <div class="listItems">
-    <v-card
-    class="mx-auto"
-    max-width="400"
-    tile
-    >
-      <v-card-title> Items </v-card-title>
-      <v-skeleton-loader
-        v-if="!loaded"
-        height=100
-        type="list-item-two-line"
-      >
-      </v-skeleton-loader>
-      <p class="error" v-if="error"> {{error.message}} </p>
-      <v-list-item v-for="(things, index) in things"
-                v-bind:item="things"
-                v-bind:index="index"
-                v-bind:key="things._id"
-      >
-        <v-list-item-content>
-          <v-list-item-title> {{things.name}} </v-list-item-title>
-          <v-list-item-subtitle>
-            {{`Week: ${things.week}`}}
-          </v-list-item-subtitle>
-          <v-list-item-subtitle>
-            {{`Quantity: ${things.quantity}`}}
-          </v-list-item-subtitle>
-          <v-list-item-subtitle>
-            {{`Created On: ${things.createdAt}`}}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-card>
+    <v-container fluid>
+      <v-row>
+
+        <v-skeleton-loader class="ma-6"
+          v-if="!loaded & !error"
+          height=175
+          width=250
+          type="card"
+        ></v-skeleton-loader>
+        <v-card v-else-if="error" height=175 width=250 class="error ma-6" > <v-card-title>{{error.message}}</v-card-title> </v-card>
+
+        <div v-for="(items, index) in items" 
+          v-bind:item="items"
+          v-bind:index="index"
+          v-bind:key="items.id"
+        >
+          <itemCard v-bind:item=items.name v-bind:quantity=items.quantity />
+        </div>
+
+      </v-row>
+    </v-container>
   </div>
   
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import itemCard from '../components/itemCard'
 
 export default {
   name: "listItems",
+
+  components: {
+    itemCard,
+  },
 
   data: () => ({
 
   }),
 
   mounted() {
-    this.$store.dispatch('loadThings')
+    this.$store.dispatch('loadItems')
   },
 
   computed: mapState([
-    'things', 'error', 'loaded'
+    'items', 'error', 'loaded'
   ])
 };
 </script>

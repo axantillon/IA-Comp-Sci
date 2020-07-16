@@ -80,7 +80,7 @@ export default {
             this.quantity = ''
 
             await ItemService.insertItem(name, quantity)
-            this.$store.dispatch('loadThings')
+            this.$store.dispatch('loadItems')
                         
         }
     },
