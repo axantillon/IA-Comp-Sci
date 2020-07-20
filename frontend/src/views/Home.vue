@@ -1,16 +1,18 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld />
+    <router-view/>
+    <hr/>
+    <itemGrid/>
   </div>
 </template> 
 
 <script>
-// @ is an alias to /src
+import itemGrid from "../components/itemGrid"
 
 export default {
   name: "Home",
   components: {
+      itemGrid,
   }
 };
 </script>

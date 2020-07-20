@@ -6,37 +6,42 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    things: [],
+    items: [],
     loaded: false, //Set default value to false
     error: '',
+    drawer: false,
   },
   actions: {
-    async loadThings({commit}) {
+    async loadItems({commit}) {
       try{
         const response = await ItemService.getItems();
-        commit('setThings', response.data)
-        commit('loadedThings', true)
+        commit('setItems', response.data)
+        commit('loadedItems', true)
 
       } catch (err) {
         commit('handleError', err)
       }
-    }
+    },
   },
   mutations: {
-    setThings (state, things) {
-      state.things = things
+    setItems (state, items) {
+      state.items = items
     },
     handleError (state, error) {
       state.error = error
     },
-    loadedThings (state, loaded) {
+    loadedItems (state, loaded) {
       state.loaded = loaded
+    },
+    toggleDrawer (state) {
+      state.drawer = !state.drawer
     }
   },
   getters: {
-    things: state => state.things,
+    items: state => state.titems,
     error: state => state.error,
-    loaded: state => state.loaded
+    loaded: state => state.loaded,
+    drawer: state => state.drawer,
   },
   modules: {}
 });
