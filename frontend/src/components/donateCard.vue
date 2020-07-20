@@ -78,7 +78,6 @@ export default {
     methods: {
         async donate() {
             this.loading = true
-            
             this.$v.$touch()
             const item = this.item
             const quantity = parseInt(this.quantity)

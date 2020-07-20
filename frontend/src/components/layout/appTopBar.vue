@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
     name: "appTopBar",
@@ -48,10 +47,6 @@ export default {
     methods: {
 
     },
-
-    computed: mapState([
-        'drawer'
-    ])
 };
 </script>
 

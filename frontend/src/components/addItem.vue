@@ -28,7 +28,16 @@
                         @blur="$v.quantity.$touch()"
                     ></v-text-field>
 
-                    <v-btn style="margin: 0px 0px 10px" @click="add">add</v-btn>
+                    <v-btn class="justify-center mb-3" @click="add">
+                        <div v-if="!loading">
+                            Add
+                        </div>
+                        <div v-else>
+                            <v-progress-circular
+                                indeterminate
+                            ></v-progress-circular>
+                        </div>
+                    </v-btn>
                 </form>
             </div>
         </v-card>
@@ -51,6 +60,7 @@ export default {
     data: () => ({
       name: '',
       quantity: '',
+      loading: false,
     }),
     
     computed: {
@@ -71,6 +81,7 @@ export default {
 
     methods: {
         async add() {
+            this.loading = true,
             this.$v.$touch()
             const name = this.name
             const quantity = parseInt(this.quantity)
@@ -81,7 +92,7 @@ export default {
 
             await ItemService.insertItem(name, quantity)
             this.$store.dispatch('loadItems')
-                        
+            this.loading = false
         }
     },
 }
