@@ -13,7 +13,7 @@
             <v-card-text>
             </v-card-text>
             <v-card-actions class="justify-center">
-                <v-btn class="mb-4 mt-n4" @click="overlay = !overlay"> Donate </v-btn>
+                <v-btn class="" @click="overlay = !overlay"> Donate </v-btn>
             </v-card-actions>
       </v-card>
   </div>
