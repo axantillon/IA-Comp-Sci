@@ -1,5 +1,5 @@
 <template>
-  <div class="listItems">
+  <div class="itemGrid">
     <v-container fluid>
       <v-row>
 
@@ -30,14 +30,14 @@ import { mapState } from 'vuex'
 import itemCard from '../components/itemCard'
 
 export default {
-  name: "listItems",
+  name: "itemGrid",
 
   components: {
     itemCard,
   },
 
   data: () => ({
-
+    overlay: false,
   }),
 
   mounted() {

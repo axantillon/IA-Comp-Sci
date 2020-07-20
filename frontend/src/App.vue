@@ -1,26 +1,23 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    > 
-    </v-app-bar>
+    
+    <appTopBar/>
 
     <v-content>
       <router-view/>
     </v-content>
+    
   </v-app>
 </template>
 
 <script>
-//import ListItems from './components/ListItems';
+import appTopBar from "./components/layout/appTopBar"
 
 export default {
   name: 'App',
 
   components: {
-    //ListItems,
+    appTopBar,
   },
 
   data: () => ({

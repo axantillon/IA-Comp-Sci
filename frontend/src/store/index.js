@@ -9,6 +9,7 @@ export default new Vuex.Store({
     items: [],
     loaded: false, //Set default value to false
     error: '',
+    drawer: false,
   },
   actions: {
     async loadItems({commit}) {
@@ -20,7 +21,7 @@ export default new Vuex.Store({
       } catch (err) {
         commit('handleError', err)
       }
-    }
+    },
   },
   mutations: {
     setItems (state, items) {
@@ -31,12 +32,16 @@ export default new Vuex.Store({
     },
     loadedItems (state, loaded) {
       state.loaded = loaded
+    },
+    toggleDrawer (state) {
+      state.drawer = !state.drawer
     }
   },
   getters: {
     items: state => state.titems,
     error: state => state.error,
-    loaded: state => state.loaded
+    loaded: state => state.loaded,
+    drawer: state => state.drawer,
   },
   modules: {}
 });
