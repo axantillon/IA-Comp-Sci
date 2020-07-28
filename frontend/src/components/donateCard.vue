@@ -91,7 +91,7 @@ export default {
             this.quantity = ''
 
             await archiveWeekService.updateWeekItem(this.week_id, entry_id, user_id, quantity)
-            this.$store.dispatch('loadItems', this.week_id)
+            this.$store.dispatch('loadWeekItems', this.week_id)
 
             this.emitChangeOverlay()
             this.loading = false        

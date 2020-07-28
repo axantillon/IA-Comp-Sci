@@ -111,7 +111,7 @@ export default {
             this.amount_volunteer = ''
 
             await archiveWeekService.updateWeekItem(this.week_id, entry_id, user_id, amount_volunteer)
-            this.$store.dispatch('loadItems', this.week_id)
+            this.$store.dispatch('loadWeekItems', this.week_id)
             this.loading = false
         }
     },

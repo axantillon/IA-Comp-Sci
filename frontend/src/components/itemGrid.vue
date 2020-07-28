@@ -47,7 +47,7 @@ export default {
   }),
 
   mounted() {
-    this.$store.dispatch('loadItems', this.week_id)
+    this.$store.dispatch('loadWeekItems', this.week_id)
   },
 
   computed: mapState([

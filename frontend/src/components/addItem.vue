@@ -11,22 +11,18 @@
             <hr>
             <div class="form-addItem" style="padding: 0px 40px">
                 <form>
-                    <v-text-field
-                        v-model="item_id"
-                        :error-messages="item_idErrors"
-                        label="Id of Item"
+                    <v-select
+                        v-model="select"
+                        :items="main_items"
+                        item-text="name"
+                        item-value="_id"
+                        label="Item Name"
+                        :return-object="true"
                         required
-                        @input="$v.item_id.$touch()"
-                        @blur="$v.item_id.$touch()"
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="item_name"
-                        :error-messages="item_nameErrors"
-                        label="Name of Item"
-                        required
-                        @input="$v.item_name.$touch()"
-                        @blur="$v.item_name.$touch()"
-                    ></v-text-field>
+                        :error-messages="selectErrors"
+                        @change="$v.select.$touch()"
+                        @blur="$v.select.$touch()"
+                    ></v-select>
                     <v-text-field
                         v-model="amount_needed"
                         :error-messages="amount_neededErrors"
@@ -53,6 +49,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
 import archiveWeekService from '../services/archiveWeekService'
@@ -61,32 +58,18 @@ export default {
     mixins: [validationMixin],
 
     validations: {
-      item_name: { required},
-      item_id: { required},
       amount_needed: { required, numeric },
+      select: { required },
     },
 
     data: () => ({
-      item_id: '',
-      item_name: '',
       amount_needed: '',
+      select: null,
       loading: false,
       week_id: "26Jun"
     }),
     
     computed: {
-        item_nameErrors () {
-            const errors = []
-            if (!this.$v.item_name.$dirty) return errors
-            !this.$v.item_name.required && errors.push('Item Name is required')
-            return errors
-        },
-        item_idErrors () {
-            const errors = []
-            if (!this.$v.item_id.$dirty) return errors
-            !this.$v.item_id.required && errors.push('Item ID is required')
-            return errors
-        },
         amount_neededErrors () {
             const errors = []
             if (!this.$v.amount_needed.$dirty) return errors
@@ -94,25 +77,37 @@ export default {
             !this.$v.amount_needed.required && errors.push('Quantity needed is required')
             return errors
         },
+        selectErrors () {
+            const errors = []
+            if (!this.$v.select.$dirty) return errors
+            !this.$v.select.required && errors.push('Item Name is required')
+            return errors
+        },
+        ...mapState([
+            'main_items', 'error', 'loaded' 
+        ])
     },
 
     methods: {
         async add() {
             this.loading = true,
             this.$v.$touch()
-            const item_id = this.item_id
-            const item_name = this.item_name
+            const item_id = this.select._id
+            const item_name = this.select.name
             const amount_needed = parseInt(this.amount_needed)
 
             this.$v.$reset()
-            this.item_id = ''
-            this.item_name = ''
+            this.select = null
             this.amount_needed = ''
 
             await archiveWeekService.insertWeekItem(this.week_id, item_id, item_name, amount_needed)
-            this.$store.dispatch('loadItems', this.week_id)
+            this.$store.dispatch('loadWeekItems', this.week_id)
             this.loading = false
         }
+    },
+
+    mounted() {
+        this.$store.dispatch('loadMainItems')
     },
 }
 </script>

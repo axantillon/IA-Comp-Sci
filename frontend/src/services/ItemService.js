@@ -9,7 +9,7 @@ class itemService {
         return response;
     }
 
-    static async getItembyId(){
+    static async getItembyId(item_id){
         const response = await axios.get(`${url}${item_id}`);
         return response;
     }
