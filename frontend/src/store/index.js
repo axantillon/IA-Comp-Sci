@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import ItemService from "../services/ItemService"
+import archiveWeekService from "../services/archiveWeekService"
 
 Vue.use(Vuex);
 
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   actions: {
     async loadItems({commit}, week_id) {
       try{
-        const response = await ItemService.getItems(week_id);
+        const response = await archiveWeekService.getWeekItems(week_id);
         commit('setItems', response.data)
         commit('loadedItems', true)
 

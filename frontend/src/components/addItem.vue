@@ -55,7 +55,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
-import ItemService from '../services/ItemService'
+import archiveWeekService from '../services/archiveWeekService'
 
 export default {
     mixins: [validationMixin],
@@ -109,7 +109,7 @@ export default {
             this.item_name = ''
             this.amount_needed = ''
 
-            await ItemService.insertItem(this.week_id, item_id, item_name, amount_needed)
+            await archiveWeekService.insertWeekItem(this.week_id, item_id, item_name, amount_needed)
             this.$store.dispatch('loadItems', this.week_id)
             this.loading = false
         }

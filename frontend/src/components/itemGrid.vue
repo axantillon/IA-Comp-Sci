@@ -16,7 +16,12 @@
           v-bind:index="index"
           v-bind:key="items.id"
         >
-          <itemCard v-bind:entry_id=items._id v-bind:item_name=items.item_name v-bind:quantity=items.amount_needed v-bind:week_id=week_id />
+          <itemCard 
+            v-bind:entry_id=items._id 
+            v-bind:item_name=items.item_name 
+            v-bind:item_desc=items.item_description 
+            v-bind:quantity=items.amount_needed 
+            v-bind:week_id=week_id />
         </div>
 
       </v-row>

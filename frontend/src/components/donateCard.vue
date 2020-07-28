@@ -13,6 +13,9 @@
                     <div class="">
                         We still need {{ quantityNeeded }} for this week!
                     </div>
+                    <div class="">
+                        {{ item_desc }}
+                    </div>
                     <div class="form-updateItem pa-2">
                         <form>
                             <v-text-field
@@ -47,12 +50,12 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
-import ItemService from '../services/ItemService'
+import archiveWeekService from '../services/archiveWeekService'
 
 export default {
     name: "donateCard",
 
-    props: ["item_name", "quantityNeeded", "entry_id", "week_id", "overlay"],
+    props: ["item_name", "item_desc", "quantityNeeded", "entry_id", "week_id", "overlay"],
 
     mixins: [validationMixin],
 
@@ -87,7 +90,7 @@ export default {
             this.$v.$reset()
             this.quantity = ''
 
-            await ItemService.updateItem(this.week_id, entry_id, user_id, quantity)
+            await archiveWeekService.updateWeekItem(this.week_id, entry_id, user_id, quantity)
             this.$store.dispatch('loadItems', this.week_id)
 
             this.emitChangeOverlay()

@@ -21,6 +21,9 @@
         <v-list-item-content>
           <v-list-item-title> {{items.item_name}} </v-list-item-title>
           <v-list-item-subtitle>
+            {{ items.item_description }}
+          </v-list-item-subtitle>
+          <v-list-item-subtitle>
             {{`Original Amount: ${items.original_amount}`}}
           </v-list-item-subtitle>
           <v-list-item-subtitle>

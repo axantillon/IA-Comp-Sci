@@ -10,6 +10,14 @@ router.get('/', async (req,res) => {
     res.send(await items.find({}).toArray());
 });
 
+// Get item by :item_id
+router.get('/:item_id', async (req,res) => {
+    const items = await loadItemsCollection();
+    res.send(await items.find({
+        _id: mongodb.ObjectId(req.params.item_id)
+    }).toArray());
+});
+
 //Add Item 
 router.post('/', async (req,res) => {
     const items = await loadItemsCollection();
@@ -22,7 +30,7 @@ router.post('/', async (req,res) => {
 });
 
 // Update description on item by :id
-router.put('/:id', async(req,res) => {
+router.put('/:item_id', async(req,res) => {
     const items = await loadItemsCollection();
     await items.updateOne(
         {_id: mongodb.ObjectId(req.params.id)},

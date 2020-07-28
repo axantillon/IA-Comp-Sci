@@ -1,28 +1,31 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/archive/';
+const url = 'http://localhost:5000/api/items/';
 
-class ItemService {
-    // Get Items
-    static async getItems(week_id){
-        const response = await axios.get(`${url}${week_id}`);
+class itemService {
+    // Get Items in main db
+    static async getItems(){
+        const response = await axios.get(url);
         return response;
     }
 
-    static insertItem(week_id, item_id, item_name, amount_needed){
-        return axios.post(`${url}${week_id}`, {
-            item_id,
-            item_name,
-            amount_needed,
+    static async getItembyId(){
+        const response = await axios.get(`${url}${item_id}`);
+        return response;
+    }
+
+    static insertItem(name, description){
+        return axios.post(url, {
+            name,
+            description,
         })
     }
 
-    static updateItem(week_id, entry_id, user_id, amount_volunteer) {
-        return axios.put(`${url}${week_id}/${entry_id}`, {
-            user_id,
-            amount_volunteer
+    static updateItem(item_id, description) {
+        return axios.put(`${url}${item_id}`, {
+            description
         })
     }
 }
 
-export default ItemService;
+export default itemService;
