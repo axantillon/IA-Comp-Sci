@@ -10,43 +10,34 @@ router.get('/', async (req,res) => {
     res.send(await items.find({}).toArray());
 });
 
-// Get all items filtered by :week
-router.get('/:week', async (req,res) => {
-    const items = await loadItemsCollection();
-    res.send(await items.find({ week: req.params.week }).toArray());
-});
-
-//Add Item for :week
+//Add Item 
 router.post('/', async (req,res) => {
     const items = await loadItemsCollection();
     await items.insertOne({
-        //week: req.params.week,
-        name: req.body.name,
-        quantity: req.body.quantity,
-        createdAt: new Date()
+        "name": req.body.name,
+        "description": req.body.description,
     });
     
     res.status(201).send();
 });
 
-// Update quantity on item filtered by :week and :id
-router.put('/:name', async(req,res) => {
+// Update description on item by :id
+router.put('/:id', async(req,res) => {
     const items = await loadItemsCollection();
     await items.updateOne(
-        {name: req.params.name},
+        {_id: mongodb.ObjectId(req.params.id)},
         {
-            $inc: {quantity: -req.body.quantity }, //update quantity field
-            $currentDate: { lastModified: true }   //Add Date for when it was Last Modified
+            description: req.body.description,
         }
     );
 
     res.status(204).send();
 });
 
-//Delete Item for :week & :id
-router.delete('/:name', async(req,res) => {
+//Delete Item by :id
+router.delete('/:id', async(req,res) => {
     const items = await loadItemsCollection();
-    await items.deleteOne( {name: req.params.name} );
+    await items.deleteOne( {_id: mongodb.ObjectId(req.param.id)} );
     res.status(200).send({}); 
 });
 
@@ -62,7 +53,7 @@ async function loadItemsCollection() {
         }
     );
 
-    return client.db('main').collection('items');
+    return client.db('main').collection('item_test');
 };
 
 module.exports = router;

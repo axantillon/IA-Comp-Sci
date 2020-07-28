@@ -8,7 +8,7 @@
                     </v-btn>
                 </div>
                 <v-card-title class="justify-center"> Help Us Out! </v-card-title>
-                <v-card-subtitle class=" h1 justify-center "> {{ item }} </v-card-subtitle>
+                <v-card-subtitle class=" h1 justify-center "> {{ item_name }} </v-card-subtitle>
                 <v-card-text> 
                     <div class="">
                         We still need {{ quantityNeeded }} for this week!
@@ -52,7 +52,7 @@ import ItemService from '../services/ItemService'
 export default {
     name: "donateCard",
 
-    props: ["item", "quantityNeeded", "overlay"],
+    props: ["item_name", "quantityNeeded", "entry_id", "week_id", "overlay"],
 
     mixins: [validationMixin],
 
@@ -62,6 +62,7 @@ export default {
 
     data: () => ({
         quantity: '',
+        user_id: 'dummy',
         loading: false,
     }),
     
@@ -79,14 +80,15 @@ export default {
         async donate() {
             this.loading = true
             this.$v.$touch()
-            const item = this.item
+            const user_id = this.user_id
+            const entry_id = this.entry_id
             const quantity = parseInt(this.quantity)
 
             this.$v.$reset()
             this.quantity = ''
 
-            await ItemService.updateItem(item, quantity)
-            this.$store.dispatch('loadItems')
+            await ItemService.updateItem(this.week_id, entry_id, user_id, quantity)
+            this.$store.dispatch('loadItems', this.week_id)
 
             this.emitChangeOverlay()
             this.loading = false        

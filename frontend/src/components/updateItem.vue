@@ -12,20 +12,28 @@
             <div class="form-updateItem" style="padding: 0px 40px">
                 <form>
                     <v-text-field
-                        v-model="name"
-                        :error-messages="nameErrors"
-                        label="Name of Item"
+                        v-model="entry_id"
+                        :error-messages="entry_idErrors"
+                        label="Id of Entry"
                         required
-                        @input="$v.name.$touch()"
-                        @blur="$v.name.$touch()"
+                        @input="$v.entry_id.$touch()"
+                        @blur="$v.entry_id.$touch()"
                     ></v-text-field>
                     <v-text-field
-                        v-model="quantity"
-                        :error-messages="quantityErrors"
-                        label="Quantity to Volunteer"
+                        v-model="user_id"
+                        :error-messages="user_idErrors"
+                        label="Id of User to Volunteer"
                         required
-                        @input="$v.quantity.$touch()"
-                        @blur="$v.quantity.$touch()"
+                        @input="$v.user_id.$touch()"
+                        @blur="$v.user_id.$touch()"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="amount_volunteer"
+                        :error-messages="amount_volunteerErrors"
+                        label="Amount to Volunteer"
+                        required
+                        @input="$v.amount_volunteer.$touch()"
+                        @blur="$v.amount_volunteer.$touch()"
                     ></v-text-field>
 
                     <v-btn class="justify-center mb-3" @click="update">
@@ -53,28 +61,37 @@ export default {
     mixins: [validationMixin],
 
     validations: {
-      name: { required},
-      quantity: { required, numeric },
+      entry_id: { required},
+      user_id: {required},
+      amount_volunteer: { required, numeric },
     },
 
     data: () => ({
-      name: '',
-      quantity: '',
+      entry_id: '',
+      user_id: '',
+      amount_volunteer: '',
       loading: false,
+      week_id: "26Jun"
     }),
     
     computed: {
-        nameErrors () {
+        entry_idErrors () {
         const errors = []
-        if (!this.$v.name.$dirty) return errors
-        !this.$v.name.required && errors.push('Name of item is required')
+        if (!this.$v.entry_id.$dirty) return errors
+        !this.$v.entry_id.required && errors.push('Entry Id is required')
         return errors
       },
-      quantityErrors () {
+      user_idErrors () {
         const errors = []
-        if (!this.$v.quantity.$dirty) return errors
-        !this.$v.quantity.numeric && errors.push('Quantity must be a numeric value')
-        !this.$v.quantity.required && errors.push('Quantity is required')
+        if (!this.$v.user_id.$dirty) return errors
+        !this.$v.user_id.required && errors.push('Id of User is required')
+        return errors
+      },
+      amount_volunteerErrors () {
+        const errors = []
+        if (!this.$v.amount_volunteer.$dirty) return errors
+        !this.$v.amount_volunteer.numeric && errors.push('Quantity must be a numeric value')
+        !this.$v.amount_volunteer.required && errors.push('Quantity is required')
         return errors
       },
     },
@@ -84,15 +101,17 @@ export default {
             this.loading = true
 
             this.$v.$touch()
-            const name = this.name
-            const quantity = parseInt(this.quantity)
+            const entry_id = this.entry_id
+            const user_id = this.user_id
+            const amount_volunteer = parseInt(this.amount_volunteer)
 
             this.$v.$reset()
-            this.name = ''
-            this.quantity = ''
+            this.entry_id = ''
+            this.user_id = ''
+            this.amount_volunteer = ''
 
-            await ItemService.updateItem(name, quantity)
-            this.$store.dispatch('loadItems')
+            await ItemService.updateItem(this.week_id, entry_id, user_id, amount_volunteer)
+            this.$store.dispatch('loadItems', this.week_id)
             this.loading = false
         }
     },

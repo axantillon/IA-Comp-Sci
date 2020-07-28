@@ -16,18 +16,21 @@
       <v-list-item v-for="(items, index) in items"
                 v-bind:item="items"
                 v-bind:index="index"
-                v-bind:key="items._id"
+                v-bind:key="items.item_id"
       >
         <v-list-item-content>
-          <v-list-item-title> {{items.name}} </v-list-item-title>
+          <v-list-item-title> {{items.item_name}} </v-list-item-title>
           <v-list-item-subtitle>
-            {{`Week: ${items.week}`}}
+            {{`Original Amount: ${items.original_amount}`}}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Quantity: ${items.quantity}`}}
+            {{`Amount Needed: ${items.amount_needed}`}}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Created On: ${items.createdAt}`}}
+            {{`Volunteers: ${items.volunteers}`}}
+          </v-list-item-subtitle>
+          <v-list-item-subtitle>
+            {{`Entry Id: ${items._id}`}}
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -41,9 +44,10 @@ import { mapState } from 'vuex'
 export default {
   name: "itemList",
   data: () => ({
+    week_id: "26Jun"
   }),
   mounted() {
-    this.$store.dispatch('loadItems')
+    this.$store.dispatch('loadItems',this.week_id)
   },
   computed: mapState([
     'items', 'error', 'loaded'

@@ -11,9 +11,9 @@ export default new Vuex.Store({
     error: '',
   },
   actions: {
-    async loadItems({commit}) {
+    async loadItems({commit}, week_id) {
       try{
-        const response = await ItemService.getItems();
+        const response = await ItemService.getItems(week_id);
         commit('setItems', response.data)
         commit('loadedItems', true)
 

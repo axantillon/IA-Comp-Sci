@@ -16,7 +16,7 @@
           v-bind:index="index"
           v-bind:key="items.id"
         >
-          <itemCard v-bind:item=items.name v-bind:quantity=items.quantity />
+          <itemCard v-bind:entry_id=items._id v-bind:item_name=items.item_name v-bind:quantity=items.amount_needed v-bind:week_id=week_id />
         </div>
 
       </v-row>
@@ -38,14 +38,15 @@ export default {
 
   data: () => ({
     overlay: false,
+    week_id: "26Jun"
   }),
 
   mounted() {
-    this.$store.dispatch('loadItems')
+    this.$store.dispatch('loadItems', this.week_id)
   },
 
   computed: mapState([
-    'items', 'error', 'loaded'
+    'items', 'error', 'loaded' 
   ])
 };
 </script>
