@@ -55,7 +55,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
-import archiveWeekService from '../services/archiveWeekService'
+import {archiveWeekService} from '../services/archiveService'
 
 export default {
     mixins: [validationMixin],

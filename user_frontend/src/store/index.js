@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import archiveWeekService from "../services/archiveWeekService"
-import itemService from "../services/itemService"
+import {archiveWeekService} from "../services/archiveService"
+import {itemService} from "../services/mainService"
 
 Vue.use(Vuex);
 
@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     items: [],
     main_items: [],
+    currentWeek: '',
     loaded: false, //Set default value to false
     error: '',
   },
@@ -32,6 +33,9 @@ export default new Vuex.Store({
         commit('handleError', err)
       }
     },
+    changeWeek({commit}, week_id) {
+      commit('setCurrentWeek', week_id)
+    }
   },
   mutations: {
     setWeekItems (state, items) {
@@ -46,10 +50,14 @@ export default new Vuex.Store({
     loadedItems (state, loaded) {
       state.loaded = loaded
     },
+    setCurrentWeek (state, week){
+      state.currentWeek = week
+    }
   },
   getters: {
     items: state => state.items,
     main_items: state => state.main_items,
+    currentWeek: state => state.currentWeek,
     error: state => state.error,
     loaded: state => state.loaded,
   },

@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/archive/';
+export class archiveWeekService {
+    static url = 'http://localhost:5000/api/archive/';
 
-class archiveWeekService {
     // Get Items for Week
     static async getWeekItems(week_id){
-        const response = await axios.get(`${url}${week_id}`);
+        const response = await axios.get(`${this.url}${week_id}`);
         return response;
     }
 
     static insertWeekItem(week_id, item_id, item_name, amount_needed){
-        return axios.post(`${url}${week_id}`, {
+        return axios.post(`${this.url}${week_id}`, {
             item_id,
             item_name,
             amount_needed,
@@ -18,11 +18,9 @@ class archiveWeekService {
     }
 
     static updateWeekItem(week_id, entry_id, user_id, amount_volunteer) {
-        return axios.put(`${url}${week_id}/${entry_id}`, {
+        return axios.put(`${this.url}${week_id}/${entry_id}`, {
             user_id,
             amount_volunteer
         })
     }
 }
-
-export default archiveWeekService;
