@@ -1,17 +1,16 @@
 <template>
   <v-app>
-    
     <appTopBar/>
 
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
-    
+    </v-main>
+
   </v-app>
 </template>
 
 <script>
-import appTopBar from "./components/layout/appTopBar"
+import appTopBar from "../src/components/layout/appTopBar"
 
 export default {
   name: 'App',
@@ -23,5 +22,7 @@ export default {
   data: () => ({
     //
   }),
+
 };
+
 </script>

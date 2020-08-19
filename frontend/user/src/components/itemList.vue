@@ -7,7 +7,7 @@
     >
       <v-card-title> Items </v-card-title>
       <v-skeleton-loader
-        v-if="!loaded"
+        v-if="!"
         height=100
         type="list-item-two-line"
       >
@@ -54,7 +54,7 @@ export default {
     this.$store.dispatch('loadWeekItems',this.week_id)
   },
   computed: mapState([
-    'items', 'error', 'loaded'
+    'items', 'error', ''
   ])
 };
 </script>

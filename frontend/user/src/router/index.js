@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { requireAuth } from "../services/auth";
 
 Vue.use(VueRouter);
 
@@ -8,21 +9,22 @@ const routes = [
     path: "/",
     name: "Home",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Home.vue")
+      import("../views/Home.vue")
   },
   {
-    path: "/test",
-    name: "Test",
+    path: "/dashboard",
+    name: "Dashboard",
+    beforeEnter: requireAuth,
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Test.vue")
+      import("../views/Dashboard.vue")
   },
   {
-    path: "/admin",
-    name: "Admin",
+    path: "/callback",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Admin.vue")
+      import("../components/callback.vue")
   }
 ];
+
 
 const router = new VueRouter({
   mode: "history",

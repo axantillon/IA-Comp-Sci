@@ -1,7 +1,5 @@
 const express = require('express');
 const mongodb = require('mongodb');
-
-
 const router = express.Router();
 
 // Get archive for week by :week_id
@@ -30,6 +28,9 @@ router.post('/new_archive/:week_id', async (req,res) => {
 router.post('/:week_id', async (req,res) => {
     const archive_week = await loadArchiveWeek(String(req.params.week_id))
     const items = await loadItemsCollection()
+
+    console.log(req.body.item_id)
+    console.log(req.body.amount_needed)
 
     const item = await items.find({
                     _id: mongodb.ObjectId(req.body.item_id)

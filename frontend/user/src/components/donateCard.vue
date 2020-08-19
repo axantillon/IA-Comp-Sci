@@ -50,7 +50,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
-import {archiveWeekService} from '../services/archiveService'
+import {archiveWeekService} from '../services/mainServices'
 
 export default {
     name: "donateCard",

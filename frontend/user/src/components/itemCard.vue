@@ -10,7 +10,7 @@
       v-on:changeOverlayChild="changeOverlay"
       />
 
-      <v-card width="250" min-height="175">
+      <v-card width="250" >
             <v-card-title class="card_title">{{ item_name }}</v-card-title>
             <v-card-subtitle> Amount Needed : {{ quantity }}</v-card-subtitle>
             <v-card-text>
