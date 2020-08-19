@@ -40,9 +40,9 @@ export class archiveWeekService {
         return response;
     }
 
-    static updateWeekItem(week_id, entry_id, user_id, amount_volunteer) {
+    static updateWeekItem(week_id, entry_id, user_email, amount_volunteer) {
         return axios.put(`${this.url}${week_id}/${entry_id}`, {
-            user_id,
+            user_email,
             amount_volunteer,
         }, 
         { 

@@ -19,7 +19,7 @@
                     ></v-select>
                     <v-data-table class="elevation-1"
                         :headers="headers"
-                        :items="items"
+                        :items="formattedItems"
                         hide-default-footer
                     ></v-data-table>
                 </v-card>
@@ -42,7 +42,7 @@ export default {
            {text: "Description", value: "item_description"},
            {text: "Amount Requested", value: "original_amount"},
            {text: "Amount Still Needed", value: "amount_needed"},
-           {text: "Users Who Volunteered", value: "volunteers"}
+           {text: "Users Who Volunteered", value: "formattedVolunteers"}
         ],
         select: null,
         weeks: [],
@@ -65,6 +65,22 @@ export default {
 
     computed: {
         
+        formattedItems() {
+            var formattedItems = this.items
+
+            formattedItems.forEach(item => {
+                var entry = ''
+
+                var volunteers = item.volunteers
+                volunteers.forEach(volunteer => {
+                    entry = entry + volunteer.amount_volunteered + " by " + volunteer.user_email + '; ' + "\n"
+                })
+                
+                item.formattedVolunteers = entry
+                delete item.volunteers
+            })
+            return formattedItems
+        },
 
         ...mapState([
             'items', 'error', 'loaded' 

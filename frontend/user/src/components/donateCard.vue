@@ -51,6 +51,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, numeric } from 'vuelidate/lib/validators'
 import {archiveWeekService} from '../services/mainServices'
+import { getUserData } from "../services/auth"
 
 export default {
     name: "donateCard",
@@ -65,7 +66,6 @@ export default {
 
     data: () => ({
         quantity: '',
-        user_id: 'dummy',
         loading: false,
     }),
     
@@ -83,14 +83,14 @@ export default {
         async donate() {
             this.loading = true
             this.$v.$touch()
-            const user_id = this.user_id
+            const user_email = getUserData().email
             const entry_id = this.entry_id
             const quantity = parseInt(this.quantity)
 
             this.$v.$reset()
             this.quantity = ''
 
-            await archiveWeekService.updateWeekItem(this.week_id, entry_id, user_id, quantity)
+            await archiveWeekService.updateWeekItem(this.week_id, entry_id, user_email, quantity)
             this.$store.dispatch('loadWeekItems', this.week_id)
 
             this.emitChangeOverlay()

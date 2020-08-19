@@ -2,7 +2,7 @@
   <div class="appTopBar">
     <div class="appBar">
         <v-app-bar app color="primary" dark>
-            <v-toolbar-title> User Page </v-toolbar-title>
+            <v-toolbar-title> Admin Page </v-toolbar-title>
 
             <v-spacer></v-spacer>
 

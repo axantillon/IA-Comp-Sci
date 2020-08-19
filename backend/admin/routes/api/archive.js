@@ -51,14 +51,14 @@ router.post('/:week_id', async (req,res) => {
 // update an item by :entry_id from archive_week by :week_id
 router.put('/:week_id/:entry_id', async(req,res) => {
     const archive_week = await loadArchiveWeek(String(req.params.week_id))
-    const user_id = req.body.user_id;
+    const user_email = req.body.user_email;
     const amount_volunteer = req.body.amount_volunteer;
 
     await archive_week.updateOne(
         {_id: mongodb.ObjectId(req.params.entry_id)},
         {
             $push: {"volunteers": {
-                $each: [ {"user_id": user_id, "amount_volunteered": amount_volunteer}]
+                $each: [ {"user_email": user_email, "amount_volunteered": amount_volunteer}]
             }},
             $inc: {"amount_needed": -amount_volunteer }, //update quantity field
             $currentDate: { lastModified: true }   //Add Date for when it was Last Modified
