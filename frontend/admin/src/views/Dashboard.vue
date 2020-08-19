@@ -14,39 +14,37 @@
           </v-tab>
         </div>
         <v-tab-item>
-          <addPetition/>
+          <addPetition />
         </v-tab-item>
         <v-tab-item>
-          <petitionPage/>
+          <petitionPage />
         </v-tab-item>
         <v-tab-item>
-          <itemCatalogue/>
+          <itemCatalogue />
         </v-tab-item>
       </v-tabs>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
-import addPetition from "../components/addPetition"
-import petitionPage from "../components/petitionPage"
-import itemCatalogue from "../components/itemCatalogue"
+import addPetition from "../components/addPetition";
+import petitionPage from "../components/petitionPage";
+import itemCatalogue from "../components/itemCatalogue";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
 
   components: {
     addPetition,
     petitionPage,
-    itemCatalogue,
+    itemCatalogue
   },
 
   data: () => ({
     //
   }),
 
-  methods: {
-    
-  }
+  methods: {}
 };
 </script>

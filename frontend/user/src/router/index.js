@@ -8,23 +8,19 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () =>
-      import("../views/Home.vue")
+    component: () => import("../views/Home.vue")
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     beforeEnter: requireAuth,
-    component: () =>
-      import("../views/Dashboard.vue")
+    component: () => import("../views/Dashboard.vue")
   },
   {
     path: "/callback",
-    component: () =>
-      import("../components/callback.vue")
+    component: () => import("../components/callback.vue")
   }
 ];
-
 
 const router = new VueRouter({
   mode: "history",

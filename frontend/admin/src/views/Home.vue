@@ -15,28 +15,24 @@
       </v-card-actions> -->
     </v-card>
   </div>
-</template>  
+</template>
 
 <script>
-import { login } from "../services/auth"
+import { login } from "../services/auth";
 
 export default {
   name: "Home",
 
-  components: {
-    
-  },
+  components: {},
 
-  data: () => ({
-  }),
+  data: () => ({}),
 
-  mounted() {
-  },
+  mounted() {},
 
   methods: {
     handleLogin() {
-        login();
-      },
+      login();
+    }
   }
 };
 </script>

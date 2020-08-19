@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard">
     <div class="">
-      <itemGrid/>
+      <itemGrid />
     </div>
   </div>
-</template> 
+</template>
 
 <script>
-import itemGrid from "../components/itemGrid"
+import itemGrid from "../components/itemGrid";
 
 export default {
   name: "Dashboard",
   components: {
-      itemGrid,
+    itemGrid
   }
 };
 </script>

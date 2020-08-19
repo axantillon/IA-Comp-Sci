@@ -1,49 +1,41 @@
 <template>
   <div class="itemList">
-    <v-card
-    class="mx-auto"
-    max-width="400"
-    tile
-    >
+    <v-card class="mx-auto" max-width="400" tile>
       <v-card-title> Items </v-card-title>
-      <v-skeleton-loader
-        v-if="!"
-        height=100
-        type="list-item-two-line"
-      >
+      <v-skeleton-loader v-if="!" height="100" type="list-item-two-line">
       </v-skeleton-loader>
-      <p class="error" v-if="error"> {{error.message}} </p>
-      <v-list-item v-for="(items, index) in items"
-                v-bind:item="items"
-                v-bind:index="index"
-                v-bind:key="items.item_id"
+      <p class="error" v-if="error">{{ error.message }}</p>
+      <v-list-item
+        v-for="(items, index) in items"
+        v-bind:item="items"
+        v-bind:index="index"
+        v-bind:key="items.item_id"
       >
         <v-list-item-content>
-          <v-list-item-title> {{items.item_name}} </v-list-item-title>
+          <v-list-item-title> {{ items.item_name }} </v-list-item-title>
           <v-list-item-subtitle>
             {{ items.item_description }}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Original Amount: ${items.original_amount}`}}
+            {{ `Original Amount: ${items.original_amount}` }}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Amount Needed: ${items.amount_needed}`}}
+            {{ `Amount Needed: ${items.amount_needed}` }}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Volunteers: ${items.volunteers}`}}
+            {{ `Volunteers: ${items.volunteers}` }}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            {{`Entry Id: ${items._id}`}}
+            {{ `Entry Id: ${items._id}` }}
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-card>
   </div>
-  
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "itemList",
@@ -51,14 +43,11 @@ export default {
     week_id: "26Jun"
   }),
   mounted() {
-    this.$store.dispatch('loadWeekItems',this.week_id)
+    this.$store.dispatch("loadWeekItems", this.week_id);
   },
-  computed: mapState([
-    'items', 'error', ''
-  ])
+  computed: mapState(["items", "error", ""])
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>
