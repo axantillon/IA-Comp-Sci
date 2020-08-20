@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = "access_token";
 
 const CLIENT_ID = "gZrlQv9M44q8HqbwYavLHAc1TwtGrYmB";
 const CLIENT_DOMAIN = "dev-kialml3c.us.auth0.com";
-const REDIRECT = "https://frontend-user-ia-comp-sci.herokuapp.com/callback";
+const REDIRECT = "http://main.acedotai.com/callback";
 const AUDIENCE = "http://ia-comp-sci.com/user";
 
 var auth = new auth0.WebAuth({
@@ -18,7 +18,9 @@ var auth = new auth0.WebAuth({
 });
 
 export function login() {
-  auth.authorize();
+  auth.authorize({
+    prompt: "login"
+  });
 }
 
 var router = new Router({
@@ -74,8 +76,9 @@ export function setSession() {
   let idToken = getParameterByName("id_token");
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 
-  let decodedToken = decode(idToken);
-  localStorage.setItem("user", JSON.stringify(decodedToken));
+  if( accessToken !== null || idToken !== null){
+    window.location.href = "/dashboard"
+  }
 }
 
 export function isLoggedIn() {

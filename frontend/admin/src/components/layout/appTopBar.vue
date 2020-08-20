@@ -18,12 +18,12 @@
           </template>
 
           <v-list>
-            <v-list-item>
+            <!-- <v-list-item>
               <v-list-item-title> User Details </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title> Settings </v-list-item-title>
-            </v-list-item>
+            </v-list-item> -->
 
             <v-list-item v-show="!isLoggedIn()" @click="handleLogin()">
               <v-list-item-title>Log In</v-list-item-title>

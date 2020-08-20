@@ -25,7 +25,7 @@
                 @blur="$v.item_description.$touch()"
               ></v-text-field>
 
-              <v-btn class="justify-center mb-3" @click="add">
+              <v-btn class="justify-center mb-3" :disabled="denyAdd" @click="add">
                 <div v-if="!loading">
                   Add
                 </div>
@@ -88,6 +88,11 @@ export default {
       !this.$v.name.required && errors.push("Name of item is required");
       return errors;
     },
+
+    denyAdd() {
+      return this.$v.item_description.$invalid || this.$v.name.$invalid || false
+    },
+
     ...mapState(["main_items", "error", "loaded"])
   },
 

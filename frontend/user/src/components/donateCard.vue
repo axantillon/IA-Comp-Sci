@@ -3,7 +3,7 @@
     <v-overlay :value="overlay" light>
       <v-card min-width="300" min-height="200">
         <div class="d-flex justify-end">
-          <v-btn class="ma-2" fab x-small @click="emitChangeOverlay">
+          <v-btn class="ma-2" fab x-small @click="emitChangeOverlay(), cleardata()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </div>
@@ -30,7 +30,7 @@
           </div>
         </v-card-text>
         <v-card-actions class="justify-center">
-          <v-btn class="justify-center mb-3" @click="donate">
+          <v-btn class="justify-center mb-3" :disabled="this.$v.quantity.$invalid || quantityLimit" @click="donate">
             <div v-if="!loading">
               Donate
             </div>
@@ -49,6 +49,7 @@ import { validationMixin } from "vuelidate";
 import { required, numeric } from "vuelidate/lib/validators";
 import { archiveWeekService } from "../services/mainServices";
 import { getUserData } from "../services/auth";
+
 
 export default {
   name: "donateCard",
@@ -80,20 +81,24 @@ export default {
       !this.$v.quantity.numeric &&
         errors.push("Quantity must be a numeric value");
       !this.$v.quantity.required && errors.push("Quantity is required");
+      !(this.quantity <= this.quantityNeeded) && errors.push("Quantity has to be less than what is needed");
       return errors;
+    },
+    quantityLimit() {
+      return !(this.quantity <= this.quantityNeeded)
     }
   },
 
   methods: {
     async donate() {
+
       this.loading = true;
       this.$v.$touch();
       const user_email = getUserData().email;
       const entry_id = this.entry_id;
       const quantity = parseInt(this.quantity);
 
-      this.$v.$reset();
-      this.quantity = "";
+      this.cleardata()
 
       await archiveWeekService.updateWeekItem(
         this.week_id,
@@ -108,9 +113,13 @@ export default {
     },
     emitChangeOverlay() {
       this.$emit("changeOverlayChild");
+    },
+    cleardata() {
+      this.$v.$reset();
+      this.quantity = "";
     }
-  }
-};
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -2,7 +2,7 @@
   <div class="appTopBar">
     <div class="appBar">
       <v-app-bar app color="primary" dark>
-        <v-toolbar-title> User Page </v-toolbar-title>
+        <v-toolbar-title> Donations App </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -18,12 +18,6 @@
           </template>
 
           <v-list>
-            <v-list-item>
-              <v-list-item-title> User Details </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title> Settings </v-list-item-title>
-            </v-list-item>
 
             <v-list-item v-show="!isLoggedIn()" @click="handleLogin()">
               <v-list-item-title>Log In</v-list-item-title>

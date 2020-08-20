@@ -129,7 +129,7 @@ async function loadItemsCollection() {
         }
     );
 
-    return client.db('main').collection('item_test');
+    return client.db('main').collection('items');
 };
 
 module.exports = router;

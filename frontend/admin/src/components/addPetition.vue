@@ -57,7 +57,7 @@
               @blur="$v.amount_needed.$touch()"
             ></v-text-field>
 
-            <v-btn class="justify-center mb-3" @click="add">
+            <v-btn class="justify-center mb-3"  @click="add">
               Add
             </v-btn>
           </form>
@@ -71,7 +71,7 @@
         </v-card>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="createNewList">
+        <v-btn @click="createNewList" :disabled="denySubmit">
           <div v-if="!loading">
             Create New List
           </div>
@@ -138,6 +138,11 @@ export default {
       !this.$v.select.required && errors.push("Item Name is required");
       return errors;
     },
+
+    denySubmit(){
+      return (this.$v.dateRangeText.$invalid || this.items.length == 0)
+    },
+
     ...mapState(["main_items", "error", "loaded"])
   },
 

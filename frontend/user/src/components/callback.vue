@@ -11,7 +11,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setSession();
-      window.location.href = "/dashboard";
     });
   },
 

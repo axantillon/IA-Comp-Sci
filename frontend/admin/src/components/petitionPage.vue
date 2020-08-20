@@ -42,6 +42,13 @@ export default {
       { text: "Amount Still Needed", value: "amount_needed" },
       { text: "Users Who Volunteered", value: "formattedVolunteers" }
     ],
+    other_headers: {
+      item_name: "Item Name",
+      item_description: "Description",
+      original_amount: "Amount Requeste",
+      amount_needed: "Amount Still Needed",
+      formattedVolunteers: "Users Who Volunteered"
+    },
     select: null,
     weeks: []
   }),
@@ -51,14 +58,16 @@ export default {
   },
 
   methods: {
+
     async getArchivedWeeks() {
       const response = await weekService.getWeeks();
       this.weeks = response.data;
     },
+
     loadWeekItems() {
       this.$store.dispatch("loadWeekItems", this.select.archive_week_id);
       this.$store.dispatch("changeWeek", this.select.archive_week_id);
-    }
+    },
   },
 
   computed: {

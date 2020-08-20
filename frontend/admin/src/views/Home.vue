@@ -1,38 +1,43 @@
 <template>
   <div class="Home d-flex justify-center">
-    <v-card class="ma-10" width="600" height="800">
+    <v-card class="ma-10" width="600" height="400">
       <v-card-title>
-        Test
+        Administrator Page
       </v-card-title>
-      <v-card-text>
-        hwjfhjefwhg
-      </v-card-text>
-      <v-btn to="/dashboard"> View Admin </v-btn>
-      <!-- <v-card-actions class="justify-center">
+      <v-card-subtitle>
+        Log In To Manage and Review <b>Donations App</b>
+      </v-card-subtitle>
+      <v-card-actions class="justify-center">
         <v-btn @click="handleLogin()">
           Log In
         </v-btn>
-      </v-card-actions> -->
+      </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
-import { login } from "../services/auth";
+import { login, logout, isLoggedIn } from "../services/auth";
 
 export default {
   name: "Home",
 
   components: {},
 
-  data: () => ({}),
+  data: () => ({
 
-  mounted() {},
+  }),
+
+  created() {
+    if(isLoggedIn()){
+      logout()
+    }
+  },
 
   methods: {
     handleLogin() {
-      login();
+      login()
     }
-  }
+  },
 };
 </script>

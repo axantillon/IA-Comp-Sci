@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = "access_token";
 
 const CLIENT_ID = "jC2TXuczS5OyplUFHBE1gJwN94LYD0Yc";
 const CLIENT_DOMAIN = "dev-kialml3c.us.auth0.com";
-const REDIRECT = "https://frontend-admin-ia-comp-sci.herokuapp.com/callback";
+const REDIRECT =  "http://admin.acedotai.com/callback";
 const AUDIENCE = "http://ia-comp-sci.com/admin";
 
 var auth = new auth0.WebAuth({
@@ -14,11 +14,13 @@ var auth = new auth0.WebAuth({
   domain: CLIENT_DOMAIN,
   responseType: "token id_token",
   redirectUri: REDIRECT,
-  audience: AUDIENCE
+  audience: AUDIENCE,
 });
 
 export function login() {
-  auth.authorize();
+  auth.authorize({
+    prompt: "login"
+  });
 }
 
 var router = new Router({
@@ -57,7 +59,6 @@ export function getUserData() {
 function endSession() {
   localStorage.removeItem(ID_TOKEN_KEY);
   localStorage.removeItem(ACCESS_TOKEN_KEY);
-  localStorage.removeItem("user");
 }
 
 // Helper function that will allow us to extract the access_token and id_token
@@ -74,8 +75,9 @@ export function setSession() {
   let idToken = getParameterByName("id_token");
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 
-  let decodedToken = decode(idToken);
-  localStorage.setItem("user", JSON.stringify(decodedToken));
+  if( accessToken !== null || idToken !== null){
+    window.location.href = "/dashboard"
+  }
 }
 
 export function isLoggedIn() {
