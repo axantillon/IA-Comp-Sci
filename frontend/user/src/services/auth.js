@@ -59,7 +59,6 @@ export function getUserData() {
 function endSession() {
   localStorage.removeItem(ID_TOKEN_KEY);
   localStorage.removeItem(ACCESS_TOKEN_KEY);
-  localStorage.removeItem("user");
 }
 
 // Helper function that will allow us to extract the access_token and id_token

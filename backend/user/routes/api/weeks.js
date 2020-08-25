@@ -10,18 +10,19 @@ router.get('/', async (req,res) => {
     res.send(await weeks.find({}).toArray());
 });
 
-// Create new collection to archive a week
-router.post('/:week_id', async (req,res) => {
-    const archive_db = await loadArchiveDatabase()
+// Add user who volunteers for week :week_id
+router.put('/:week_id/volunteers', async (req,res) => {
     const main_weeks = await loadWeeksCollection()
     const week_id = String(req.params.week_id)
 
-    await main_weeks.insertOne({
-        archive_week_id: week_id,
-        date_created: new Date(),
-    })
-
-    await archive_db.createCollection(week_id)
+    await main_weeks.updateOne(
+        {archive_week_id: week_id},
+        {
+            $push: {"volunteers": {
+                $each: [ {"name": req.body.name, "email": req.body.email}]
+            }},
+        }
+    );
 
     res.status(201).send()
 })

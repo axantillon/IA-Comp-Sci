@@ -18,6 +18,7 @@ router.post('/:week_id', async (req,res) => {
     await main_weeks.insertOne({
         archive_week_id: week_id,
         date_created: new Date(),
+        volunteers: [],
     })
 
     await archive_db.createCollection(week_id)

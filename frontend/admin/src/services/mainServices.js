@@ -1,8 +1,10 @@
 import axios from "axios";
 import { getAccessToken } from "./auth";
 
+const root_url = "https://admin-ia-comp-sci.herokuapp.com/api"
+
 export class archiveWeekService {
-  static url = "https://admin-ia-comp-sci.herokuapp.com/api/archive/";
+  static url = root_url + "/archive/";
 
   // Get Items for Week
   static async getWeekItems(week_id) {
@@ -24,23 +26,10 @@ export class archiveWeekService {
       }
     );
   }
-
-  static updateWeekItem(week_id, entry_id, user_id, amount_volunteer) {
-    return axios.put(
-      `${this.url}${week_id}/${entry_id}`,
-      {
-        user_id,
-        amount_volunteer
-      },
-      {
-        headers: { Authorization: `Bearer ${getAccessToken()}` }
-      }
-    );
-  }
 }
 
 export class itemService {
-  static url = "https://admin-ia-comp-sci.herokuapp.com/api/items/";
+  static url = root_url + "/items/";
 
   // Get Items in main db
   static async getItems() {
@@ -69,22 +58,10 @@ export class itemService {
       }
     );
   }
-
-  static updateItem(item_id, description) {
-    return axios.put(
-      `${this.url}${item_id}`,
-      {
-        description
-      },
-      {
-        headers: { Authorization: `Bearer ${getAccessToken()}` }
-      }
-    );
-  }
 }
 
 export class weekService {
-  static url = "https://admin-ia-comp-sci.herokuapp.com/api/weeks/";
+  static url = root_url + "/weeks/";
 
   //Get all weeks
   static async getWeeks() {

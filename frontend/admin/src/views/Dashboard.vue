@@ -7,7 +7,10 @@
             New Petition List
           </v-tab>
           <v-tab>
-            Inspect Previous Lists
+            Inspect Or Update Previous Lists
+          </v-tab>
+          <v-tab>
+            List of Volunteers
           </v-tab>
           <v-tab>
             Catalogue of Items
@@ -18,6 +21,9 @@
         </v-tab-item>
         <v-tab-item>
           <petitionPage />
+        </v-tab-item>
+        <v-tab-item>
+          <volunteerList/>
         </v-tab-item>
         <v-tab-item>
           <itemCatalogue />
@@ -31,6 +37,7 @@
 import addPetition from "../components/addPetition";
 import petitionPage from "../components/petitionPage";
 import itemCatalogue from "../components/itemCatalogue";
+import volunteerList from "../components/volunteerList";
 
 export default {
   name: "Dashboard",
@@ -38,7 +45,8 @@ export default {
   components: {
     addPetition,
     petitionPage,
-    itemCatalogue
+    itemCatalogue,
+    volunteerList
   },
 
   data: () => ({

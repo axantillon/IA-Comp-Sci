@@ -41,12 +41,6 @@ router.put('/:item_id', async(req,res) => {
     res.status(204).send();
 });
 
-//Delete Item by :id
-router.delete('/:id', async(req,res) => {
-    const items = await loadItemsCollection();
-    await items.deleteOne( {_id: mongodb.ObjectId(req.param.id)} );
-    res.status(200).send({}); 
-});
 
 // Function to connect and retrieve database
 async function loadItemsCollection() {
