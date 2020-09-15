@@ -108,6 +108,7 @@ export default {
     },
     loadWeekItems() {
       this.$store.dispatch("loadWeekItems", this.select.archive_week_id);
+      this.already_volunteered = false;
       this.checkAlreadyVolunteered();
     },
 
